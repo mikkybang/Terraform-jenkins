@@ -1,33 +1,28 @@
 provider "aws" {
   region = "eu-west-2"
-  access_key = "${var.access_key}"
-  secret_key = "${var.secret_key}"
+  access_key = "AKIAIPLLY6FIRQUD2YZQ"
+  secret_key = "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"
 }
 
-data "aws_ami" "ubuntu" {
-  most_recent = true
-
-  filter {
-    name   = "name"
-    values = ["ubuntu/images/hvm-ssd/ubuntu-trusty-14.04-amd64-server-*"]
-  }
-
-  filter {
-    name   = "virtualization-type"
-    values = ["hvm"]
-  }
-
-  owners = ["099720109477"]
-}
-
-resource "aws_instance" "web" {
-  ami           = "${data.aws_ami.ubuntu.id}"
+resource "aws_instance" "example" {
+  ami = "ami-40d28157"
   instance_type = "t2.micro"
-
+  user_data = <<-EOF
+        #!/bin/bash
+        echo "Hello, World" > index.html
+        nohup busybox httpd -f -p 8080 &
+        EOF
   tags {
-    Name = "HelloWorld"
+  Name = "terraform-example"
   }
 }
-output "ip"{
-value= "${aws_instance.web.public_ip}"
+
+resource "aws_security_group" "instance" {
+  name = "terraform-example-instance"
+    ingress {
+    from_port = 8080
+    to_port = 8080
+    protocol = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+}
 }

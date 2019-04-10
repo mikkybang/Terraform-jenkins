@@ -14,7 +14,7 @@ pipeline {
         }
         stage('git clone') {
             steps {
-                sh 'sudo rm -r *;sudo git clone https://github.com/aleti-pavan/jenkins.git'
+                sh 'sudo rm -r *;sudo git clone https://github.com/mikkybang/Terraform-jenkins.git'
             }
         }
         stage('tfsvars create'){
@@ -32,9 +32,9 @@ pipeline {
                 sh 'ls ./jenkins; sudo /home/ec2-user/terraform plan ./jenkins'
             }
         }
-        stage('terraform ended') {
+        stage('terraform apply') {
             steps {
-                sh 'echo "Ended....!!"'
+                sh 'terraform apply'
             }
         }
 
