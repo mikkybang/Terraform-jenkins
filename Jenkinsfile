@@ -20,17 +20,12 @@ pipeline {
        
         stage('terraform init') {
             steps {
-                sh 'terraform init ./Terraform-jenkins'
-            }
-        }
-        stage('terraform plan') {
-            steps {
-                sh 'terraform plan ./Terraform-jenkins'
+                sh 'terraform init -input=false ./Terraform-jenkins'
             }
         }
         stage('terraform apply') {
             steps {
-                sh 'terraform apply -auto-approve ./Terraform-jenkins'
+                sh 'terraform apply -input=false -auto-approve ./Terraform-jenkins'
             }
         }
 
