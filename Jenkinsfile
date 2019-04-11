@@ -19,22 +19,22 @@ pipeline {
         }
         stage('tfsvars create'){
             steps {
-                sh 'cp /home/ec2-user/vars.tf ./jenkins/'
+                sh 'cp /home/ec2-user/vars.tf ./Terraform-jenkins/'
             }
         }
         stage('terraform init') {
             steps {
-                sh '/home/ec2-user/terraform init ./jenkins'
+                sh '/home/ec2-user/terraform init ./Terraform-jenkins'
             }
         }
         stage('terraform plan') {
             steps {
-                sh 'ls ./jenkins; /home/ec2-user/terraform plan ./jenkins'
+                sh 'ls ./jenkins; /home/ec2-user/terraform plan ./Terraform-jenkins'
             }
         }
         stage('terraform apply') {
             steps {
-                sh 'terraform apply'
+                sh '/home/ec2-user/terraform apply ./Terraform-jenkins'
             }
         }
 
