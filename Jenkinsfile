@@ -20,17 +20,17 @@ pipeline {
        
         stage('terraform init') {
             steps {
-                sh '/home/ec2-user/terraform init ./Terraform-jenkins'
+                sh 'erraform init ./Terraform-jenkins'
             }
         }
         stage('terraform plan') {
             steps {
-                sh 'ls ./jenkins; /home/ec2-user/terraform plan ./Terraform-jenkins'
+                sh 'terraform plan ./Terraform-jenkins'
             }
         }
         stage('terraform apply') {
             steps {
-                sh '/home/ec2-user/terraform apply ./Terraform-jenkins'
+                sh 'terraform apply ./Terraform-jenkins'
             }
         }
 
