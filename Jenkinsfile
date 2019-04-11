@@ -14,7 +14,7 @@ pipeline {
         }
         stage('git clone') {
             steps {
-                sh 'git clone https://github.com/mikkybang/Terraform-jenkins.git'
+                sh 'rm -r *; git clone https://github.com/mikkybang/Terraform-jenkins.git'
             }
         }
         stage('tfsvars create'){
